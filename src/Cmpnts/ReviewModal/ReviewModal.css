@@ -43,7 +43,7 @@
     object-fit: contain;
 }
 
-.modal_title{
+.modal_title > input{
     color: #000;
     font-family: Noto Sans;
     font-size: 28px;
@@ -89,6 +89,18 @@
     margin-bottom: 4.3rem;
 }
 
+
+.review-content-textarea::placeholder , .review-content-textarea{
+    color: #000;
+    font-family: "Noto Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border: none;
+    outline: none;
+    margin-bottom: 27.2rem;
+}
 
 
 .review-create_review-content{

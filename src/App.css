@@ -93,3 +93,9 @@ input:focus{
   height: 3904px;
   border: 1px solid #D9D9D9;
 } */
+
+.star_rating > svg{
+  color: #1CA764;
+  width: 2.5rem;
+  height: 2.5rem;
+}

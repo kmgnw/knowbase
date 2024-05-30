@@ -40,7 +40,6 @@ const Pagination = ({ items, itemsPerPage, onClick }) => {
 
 
 
-  // 페이지네이션 컨트롤 렌더링
   const renderPaginationControls = () => (
     <div className='pagination_btns-wrap'>
         <div className='pagination_prevBtn' onClick={goToPreviousPage}>
@@ -58,13 +57,13 @@ const Pagination = ({ items, itemsPerPage, onClick }) => {
   return (
     <>
     <div className='block-grid'>
-      {currentItems.map((e, i) => (
+      {currentItems.map((elem, i) => (
         
-            <div onClick={()=>{onClick(e)}}>
+            <div onClick={()=>{onClick(elem)}}>
                 {items === mentorList ?
-                <Block key={i} img={testImg} name={e.name} score={'e.score'} count={'e.count'} content={e.mentorContent} 
+                <Block key={i} profileImgPath={elem.profileImgPath} mentoringPath={elem.mentoringPath} name={elem.nickName} score={'e.score'} count={'e.count'} content={elem.mentorContent} 
                 /> :
-                <Block key={i} img={e.postImgPath} name={e.nickname} content={e.postContent} />
+                <Block key={i} profileImgPath={elem.postAuthorProfImg} mentoringPath={elem.postImgPath ?? testImg} name={elem.nickname} content={elem.postContent} />
                 }
                 
             </div>

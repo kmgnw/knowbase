@@ -1,6 +1,6 @@
 
 .mentoring-block-wrap {
-    width: 100%
+    width: 100%;
 }
 .mentoring-block-wrap > *{
     font-size: 1.5rem;
@@ -9,6 +9,7 @@
 
 .mentoring-block-image{
     width: 100%;
+    height: 31.9rem;
     object-fit: fill;
     border-radius: 10px;
     overflow: hidden;
@@ -16,7 +17,7 @@
 }
 .mentoring-block-image >img{
     width: 100%;
-    
+    height: 31.9rem;
 }
 
 .mentoring-block-wrap > div:nth-child(2) { 

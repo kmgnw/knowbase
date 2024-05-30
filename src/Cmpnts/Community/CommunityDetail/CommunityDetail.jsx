@@ -2,88 +2,59 @@ import './CommunityDetail.css'
 import Comment from './Comment/Comment'
 import Header from '../../Header/Header'
 import testImg from '../../../assets/testImg.png'
+import award from '../../../assets/Award.png'
 
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { crntPostState, crntMentorState, mentorListState, postState } from '../../../recoil'
+import { crntPostState, crntMentorState, crntMenteeState, mentorListState, menteeListState, postState, baseUrl, crntUserState } from '../../../recoil'
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { isIdentifiedUser } from '../../validator'
 
 function CommunityDetail() {
+    const crntUser = useRecoilValue(crntUserState)
     const [isIdentified, setIsIdentified] = useState(false)
     const navigator = useNavigate()
+    const [cmtInput, setCmtInput] = useState('')
     const [crntPost,setCrntPost] = useRecoilState(crntPostState)
     const [mentorList, setMentorList] = useRecoilState(mentorListState)
+    const [menteeList, setMenteeList] = useRecoilState(menteeListState)
     const [crntMentor, setCrntMentor] = useRecoilState(crntMentorState)
+    const [crntMentee, setCrntMentee] = useRecoilState(crntMenteeState)
     const [posts, setPosts] = useRecoilState(postState)
 
     function findMentor(userid) {
         let mentor = mentorList.find((e) => {
-            return parseInt(e.id, 10) === parseInt(userid, 10);
+            return e.userId === userid;
         });
         return mentor;
     }
 
-    function cmtClickedHandler(comment) {
-        console.log(comment.isMentor)
-        if (comment.isMentor) {
-            setCrntMentor(findMentor(comment.userId), 10)
-            navigator('/mentor_homepage');
-        } else {
-            navigator('/menti_homepage')
-        }
+    function findMentee(userid) {
+        let mentee = menteeList.find((e) => {
+            return parseInt(e.userId, 10) === parseInt(userid, 10);
+        });
+        return mentee;
+    }
+    
+    function cmtSubmitHandler(){
+        fetch(`${baseUrl}/api/comment`,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({
+                "userId" : crntUser.userId,
+                "postId" : crntPost.postId,
+                "commentContent" : cmtInput
+            })
+    })
+    .then(res => res.json())
+    .then(data=>console.log(data))
+
+    setCmtInput('')
     }
 
     useEffect(() => {
-        // cmts 가져오기
-        setCrntPost({
-            ...crntPost, cmts:[
-                {
-                    "commentId": 1,
-                    "userId": 1,
-                    "nickname": "nickname",
-                    "profImgPath": "string",
-                    "isMentor": false,
-                    "commentContent": "userId 1이 쓴 댓글1",
-                    "countLike": 1,
-                    "isLike": false,
-                    "isadopt" : false
-                },
-                {
-                    "commentId": 2,
-                    "userId": 2,
-                    "nickname": "mentorNickname",
-                    "profImgPath": "string",
-                    "isMentor": true,
-                    "commentContent": "userId 2가 쓴 댓글2",
-                    "countLike": 5,
-                    "isLike": false,
-                    "isadopt" : false
-                },
-                {
-                    "commentId": 3,
-                    "userId": 3,
-                    "nickname": "mentorNickname",
-                    "profImgPath": "string",
-                    "isMentor": true,
-                    "commentContent": "userId 2가 쓴 댓글2",
-                    "countLike": 6,
-                    "isLike": false,
-                    "isadopt" : true
-                },
-                {
-                    "commentId": 4,
-                    "userId": 4,
-                    "nickname": "mentorNickname",
-                    "profImgPath": "string",
-                    "isMentor": true,
-                    "commentContent": "userId 2가 쓴 댓글2",
-                    "countLike": 1,
-                    "isLike": false,
-                    "isadopt" : false
-                }
-            ]
-        })
 
         // setPosts(posts.map((post, idx) => {
         //     if (post === crntPost) {
@@ -96,19 +67,27 @@ function CommunityDetail() {
         //     }
         //     return post;
         // }));
-        setIsIdentified(isIdentifiedUser(crntPost.postId))
+        setIsIdentified(isIdentifiedUser(parseInt(crntPost.postId,10)))
 
 
-        // fetch(`api/post?postId=${posts[crntPostIdx].postId}`, {method: "GET"})
-        // .then((res) => res.json())
-        //   .then((data) => {
-        //       setPosts({...posts, cmts: data.comments});
-        //   })
-        //   .catch((error) => {
-        //       console.error("Error fetching data: ", error);
-        //   });
+        fetch(`${baseUrl}/api/comment/all?postId=${crntPost.postId}&userId=${crntUser.userId}`, { method: "GET" })
+        .then((res) => res.json())
+        .then((data) => {
+                console.log('cmt is')
+                console.log(data.data.comments)
+                setCrntPost({...crntPost, cmts: data.data.comments})
+        })
+        .catch((error) => {
+        console.error("Error fetching data: ", error);
+        });
+
     }, [])
 
+    useEffect(()=>{
+        if(isIdentified){
+            console.log('tres')
+        }
+    }, [])
     return (
         <>
             <Header />
@@ -118,12 +97,12 @@ function CommunityDetail() {
                 <div className='cmd_profile-wrap'>
                     <div>
                         <div className='cmd_profile-img'>
-                            <img src={crntPost.postImgPath} />
+                            <img src={crntPost.postAuthorProfImg} />
                         </div>
                         <div className='cmd_name'>{crntPost.nickname}</div>
                     </div>
                     <div className='cmd_date'>
-                        {crntPost.updatedAt}
+                        {crntPost.updateAt}
                     </div>
                 </div>
                 <div className='cmd_postImg'>
@@ -145,23 +124,37 @@ function CommunityDetail() {
 
                         <div className='cmd_input-wrap'>
                             <div className='cmd_profile'>
-                                <img src={crntPost.img} />
+                                <img src={crntUser.profileImgPath} />
                             </div>
                             <div>
-                                <input placeholder='댓글 작성이 가능합니다.' />
-                                <div className='cmd_submit'>등록</div>
+                                <input placeholder='댓글 작성이 가능합니다.' value={cmtInput} onChange={(e)=>setCmtInput(e.target.value)} />
+                                <div className='cmd_submit' onClick={cmtSubmitHandler}>등록</div>
                             </div>
                         </div>
                         {crntPost.cmts?.map((comment, i) => (
-                            <div key={i} style={{ marginBottom: '3.8rem' }} onClick={() => cmtClickedHandler(comment)}>
+                            <div key={i} style={{ marginBottom: '3.8rem' }}>
                                 <Comment
+                                    userId = {comment.userId}
+                                    isMentor = {comment.isMentor}
+                                    commentId = {comment.commentId}
                                     name={comment.nickname}
                                     img={comment.profImgPath}
-                                    grade={comment.isMentor ? '멘토' : '멘티'}
+                                    grade={
+                                        comment.isMentor ? 
+                                        (
+                                          <>
+                                            <img src={award} alt="Award" />{' '}
+                                             멘토
+                                          </>
+                                        ) : 
+                                        '멘티'
+                                      }
                                     content={comment.commentContent}
-                                    likes={comment.countLike}
-                                    isadopt = {comment.isadopt}
+                                    likes={comment.likeCount}
                                     isIdentified={isIdentified}
+                                    isAdopt = {comment.isAdopt}
+                                    isCmtIdentified={isIdentifiedUser(comment.userId)}
+                                    isLike={comment.isLike}
                                 />
                             </div>
                         ))}

@@ -3,19 +3,19 @@ import Input from "../Model/Input";
 import { useRecoilState } from "recoil";
 import { infoState, availableTimeState, idState, strengthState } from "../recoil";
 import { useEffect } from "react";
+import { baseUrl } from "../../../recoil";
 
 function Intro(){
     const [info, setInfo] = useRecoilState(infoState)
     const [availableTime, setAvailableTime] = useRecoilState(availableTimeState)
     const [id, setId] = useRecoilState(idState)
     const [strength, setStrength] = useRecoilState(strengthState)
+    let userid = window.sessionStorage.getItem('userid')
+    console.log(userid)
 
     useEffect(()=>{
-        console.log(info)
-        console.log(availableTime)
-        console.log(id)
-        console.log(strength)
-    }, [info, availableTime, id, strength])
+        
+    }, [])
     
 
     return(

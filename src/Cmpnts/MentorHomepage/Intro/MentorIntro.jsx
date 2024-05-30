@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { mentorIntroState, isEditState } from '../recoil';
 import MentorInput from '../../OnBoarding/Model/MentorInput';
+import { isValidatedInput } from '../../validator';
 
 import {
     introState,
@@ -14,10 +15,10 @@ import {
     isStrengthEditClickedState,
     isRoadmapEditClickedState
 } from '../mc_recoil';
-import { crntMentorState } from '../../../recoil';
+import { crntMentorState, baseUrl } from '../../../recoil';
 
 
-export default function MentorIntro() {
+export default function MentorIntro({isIdentified}) {
     const [crntMentor, setCrntMentor] = useRecoilState(crntMentorState)
     const [intro, setIntro] = useRecoilState(introState);
     const [availableTime, setAvailableTime] = useRecoilState(probableTimeState);
@@ -28,27 +29,43 @@ export default function MentorIntro() {
     const [isIntroEditClicked, setIsIntroEditClicked] = useRecoilState(isIntroEditClickedState)
     const [isRoadmapEditClicked, setIsRoadmapEditClicked] = useRecoilState(isRoadmapEditClickedState)
     const [isStrengthEditClicked, setIsStrengthEditClicked] = useRecoilState(isStrengthEditClickedState)
+    const [introId, setIntroId] = useState(-1)
+    useEffect(()=>{
+        fetch(`${baseUrl}/api/introduce?userId=${crntMentor.userId}`, {method: 'GET'})
+        .then((res)=>res.json())
+        .then(data=>{
+            if (data && data.data && data.data.introduces) {
+                setIntro(data.data.introduces[0].introContent || '');
+                setAvailableTime(data.data.introduces[0].availableTime || '');
+                setStrength(data.data.introduces[0].strength || '');
+                setIntroId(data.data.introduces[0].introId || -1);
+            }
+        })
+    }, [])
 
     function editBtnHandler(){
         setIsIntroEditClicked(true)
     }
 
     function saveBtnHandler(){
-        // fetch(`api/introduce?introId=${introId}`, { /// intro ID ?????????
-        //     method: 'PUT',
-        //     headers: {'Content-Type': 'application/json'},
-        //     body: JSON.stringify({
-        //         "userId": crntMentor.id,
-        //         "introContent": intro,
-        //         "availableTime": availableTime,
-        //         "strength": strength
-        //     })
-        // })
-        // .then(response => response.json())
-        // .then(data => console.log(data))
-        // .catch(error => console.error('Error:', error));
+        if(isValidatedInput([intro, availableTime, strength])){
+            fetch(`${baseUrl}/api/introduce/${introId}`, {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                "userId": crntMentor.userId,
+                "introContent": intro,
+                "availableTime": availableTime,
+                "strength": strength,
+            })
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
 
         setIsIntroEditClicked(false)
+        }
+        
     }
     return (
         <div className='mentoring_intro_container'>
@@ -61,8 +78,8 @@ export default function MentorIntro() {
 
             <div className='mentorIntro_btn_container'>
             <div className="mentorIntro_btn_wrap">
-              {isIntroEditClicked ?<button className="save_btn" onClick={saveBtnHandler}>저장하기</button>:
-              <button className="modify_btn" onClick={editBtnHandler}>수정하기</button> 
+              {isIdentified && (isIntroEditClicked ?<button className="save_btn" onClick={saveBtnHandler}>저장하기</button>:
+              <button className="modify_btn" onClick={editBtnHandler}>수정하기</button> )
               }  
                 </div>
             </div>       

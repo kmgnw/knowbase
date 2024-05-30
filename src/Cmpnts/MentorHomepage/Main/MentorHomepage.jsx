@@ -7,7 +7,7 @@ import MentoringHomepageNavBar from './MentoringHomepageNavBar';
 import ProfileSection from './ProfileSection';
 
 import { useRecoilValue, useRecoilState } from 'recoil';
-import { mentorListState, crntMentorState, selectedNavbarState, selectedMainNavbarState } from '../../../recoil';
+import { mentorListState, crntMentorState, selectedNavbarState, selectedMainNavbarState, crntUserState } from '../../../recoil';
 import { isReviewClickedState, isContactClickedState } from '../../../recoil';
 import { isEditState } from '../recoil';
 import { useEffect, useRef, useState } from 'react';
@@ -23,6 +23,7 @@ import ReviewCreate from '../../ReviewCreateModal/ReviewCreate';
 
 
 function MentoringHomepage() {
+    const [crntUser, setCrntUser] = useRecoilState(crntUserState)
     const [isIdentified, setIsIdentified] = useState(false);
     let navigator = useNavigate()
     const editProfileRef = useRef(null)
@@ -35,13 +36,14 @@ function MentoringHomepage() {
     const [isContactClicked, setIsContactClicked] = useRecoilState(isContactClickedState)
     
     useEffect(() => {
-            setIsIdentified(isIdentifiedUser(crntMentor.id));
+        setIsIdentified(isIdentifiedUser(crntMentor.userId));
     }, [crntMentor]);
     
     
 
     useEffect(()=>{
         setSelectedMainNavbar('멘토링')
+        setSelectedNavbar('소개')
         renderContent();
     },[])
 
@@ -49,24 +51,22 @@ function MentoringHomepage() {
     function btnClickedHandler(btnRef) {
         if (btnRef.current && btnRef.current.textContent === '프로필 수정하기') {
             navigator('/edit_profile')
-        }else if(btnRef.current && btnRef.current.textContent === '문의하기') {
-            setIsContactClicked(true)
-        }
+        }else if(btnRef.current && btnRef.current.textContent === '문의하기') { setIsContactClicked(true) }
     }
 
 
     function renderContent(){
         switch (selectedNavbar) {
             case '소개':
-                return <MentorIntro />;
+                return <MentorIntro isIdentified = {isIdentified} />;
             case '포트폴리오':
                 return <Portfolio isIdentified={isIdentified}/>;
             case '멘토링 로드맵':
-                return <MentorRoadmap />
+                return <MentorRoadmap isIdentified={isIdentified}/>
             case '질문':
-                return <MentorQA />;
+                return <MentorQA isIdentified={isIdentified}/>;
             case '후기':
-                return <MentorReview />;
+                return <MentorReview isIdentified={isIdentified}/>;
                 
             default:
                 return null;

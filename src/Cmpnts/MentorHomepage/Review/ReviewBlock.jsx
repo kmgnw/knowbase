@@ -11,12 +11,15 @@ import { useRecoilState } from 'recoil';
 
 
 
-export default function ReviewBlock({ before, after, reviewTitle, rating, date, reviewContent }) {
+
+export default function ReviewBlock({ review, editBtnHandler, deleteBtnHandler }) {
+    const userid = parseInt(window.sessionStorage.getItem('userid'), 10)
+
     // 평점을 표시하는 함수
     const renderRatingStars = () => {
         const starIcons = [];
         for (let i = 0; i < 5; i++) {
-            if (i < rating) {
+            if (i < Math.ceil(review.satisfaction)) {
                 starIcons.push(<PiStarFill key={i} />);
             } else {
                 starIcons.push(<PiStarLight key={i} />);
@@ -31,31 +34,37 @@ export default function ReviewBlock({ before, after, reviewTitle, rating, date, 
         <div className="mentroing_review_wrap">
             <div className="review_img_wrap">
                 <div className="before_img">
-                    <img src={before} alt="Before"/>
+                    <img src={review.before} alt="Before"/>
                     <div>
                     <div className='review_text'>before</div>
                     </div>
                     
                 </div>
                 <div className="after_img">
-                    <img src={after} alt="After"/>
+                    <img src={review.after} alt="After"/>
                     <div />
                     <div className='review_text'>after</div>
                 </div>
             </div>
             <div className="review_content">
                 <div>
-                <div className="review_title">{reviewTitle}</div>
+                <div className="review_title">{review.reviewTitle}</div>
                 <div className="review_rating">{renderRatingStars()}</div>
                 </div>
                 <div>
-                <div className="review_date">{date}</div>
-                <div className="review_comment">{reviewContent}</div>
+                <div className="review_date">{review.date}</div>
+                <div className="review_comment">{review.reviewContent}</div>
                 </div>
+                <div className='review-block_btn-wrap'>
                 <div className="review_detail_btn">
                     <button>더보기</button>
+                    </div>
+                    {review.menteeId === userid &&
+                        <div style={{display: 'flex', gap: '1vw'}}>
+                        <div className='review-block_edit-unselect' onClick={(e)=>editBtnHandler(e, review)}><div>수정</div></div>
+                        <div className='review-block_delete-unselect' onClick={(e)=>deleteBtnHandler(e, review)}><div>삭제</div></div>
+                        </div>}
                 </div>
-                
             </div>
         </div>
     );

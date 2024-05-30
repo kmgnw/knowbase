@@ -6,6 +6,7 @@ import { crntCategoryIdxState, infoState, availableTimeState, idState, strengthS
 import { useRecoilState } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useRef } from 'react'
+import { baseUrl } from '../../../recoil'
 
 function Layout({element}) {
     let navigator = useNavigate()
@@ -29,6 +30,8 @@ function Layout({element}) {
     const [mentorings, setClickedMentoringTypes] = useRecoilState(clickedMentoringTypeState)
     const [interests, setClickedInterestTypes] = useRecoilState(clickedInterestTypeState)
 
+    let userid = window.sessionStorage.getItem('userid')
+
     const categoryCondition = (dwellings.length > 0 && spaces.length > 0 && mentorings.length > 0 && interests.length > 0)
     const infoCondition = (info !== '' && availableTime !== '' && id !== '' && strength !== '')
     const roadmapCondition = (beforeMentoring !== '' && whileMentoring !== '' && afterMentoring !== '')
@@ -50,14 +53,67 @@ function Layout({element}) {
         }
     }
     
-    function nextBtnHandler() {
+    async function nextBtnHandler() {
         if (crntCategoryIdx === 0 && categoryCondition) {
             btnColoredWhen(['']); // 버튼 색상 초기화
             setCrntCategoryIdx(crntCategoryIdx + 1);
         } else if (crntCategoryIdx === 1 && infoCondition) {
-            btnColoredWhen(['']);
-            setCrntCategoryIdx(crntCategoryIdx + 1);
+            console.log('crntCatergryIndex is 1')
+            try {
+                console.log(userid, info, availableTime, strength, id)
+                const response = await fetch(`${baseUrl}/api/introduce`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        userId: parseInt(userid, 10),
+                        introContent: info,
+                        availableTime: availableTime,
+                        strength: strength,
+                        kakaoId: id
+                    })
+                });
+    
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+    
+                const data = await response.json();
+                console.log(data);
+    
+                btnColoredWhen(['']);
+                setCrntCategoryIdx(crntCategoryIdx + 1);
+            } catch (error) {
+                console.error('There was a problem with the fetch operation:', error);
+            }
         } else if (crntCategoryIdx === 2 && roadmapCondition) {
+            try {
+                const response = await fetch(`${baseUrl}/api/roadmap`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        "userId": userid,
+                        "roadmapBefore": beforeMentoring,
+                        "roadmapStart": whileMentoring,
+                        "roadmapAfter": afterMentoring
+                    })
+                });
+    
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+    
+                const data = await response.json();
+                console.log(data);
+    
+                btnColoredWhen(['']);
+                setCrntCategoryIdx(crntCategoryIdx + 1);
+            } catch (error) {
+                console.error('There was a problem with the fetch operation:', error);
+            }
             nextBtnRef.current.textContent = '메인페이지로 이동';
             btnColoredWhen(['']);
             setCrntCategoryIdx(crntCategoryIdx + 1);
@@ -65,6 +121,7 @@ function Layout({element}) {
             navigator('/');
         }
     }
+    
 
     useEffect(() => {
         buttonHighlighter();
@@ -79,6 +136,7 @@ function Layout({element}) {
         buttonHighlighter();
         btnColoredWhen([''])
     }, []);
+
 
     function buttonHighlighter() {
         
@@ -167,7 +225,6 @@ function Layout({element}) {
                     <div ref={nextBtnRef} className='layout_next-btn' onClick={nextBtnHandler}>
                         <div>다음</div>
                     </div>
-
 
                 </div>
             </div>

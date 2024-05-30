@@ -1,26 +1,26 @@
 import testImg from '../../assets/testImg.png'
 import '../../Styles/Block.css'
 
-export default function Block({img, name, score, count, content, tag1, tag2, tag3}){
+export default function Block({profileImgPath, mentoringPath, name, score, count, content, tag1, tag2, tag3}){
 
 
     return(
         <div className="mentoring-block-wrap">
             <div className="mentoring-block-image">
-                <img src={testImg}/>
+                <img src={mentoringPath}/>
             </div>
             <div>
                 <div className='mentoring-block-profile-wrap'>
                     <div className='mentoring-block-profile-img'>
-                        <img src={img}/>
+                        <img src={profileImgPath}/>
                     </div>
                     <span className='mentoring-block-name'>{name}</span>
                     </div>
                     {/* 별 아이콘 삽입 필요 */}
-                <div>
+                {/* <div>
                     <span>{score} </span>
                     <span>({count})</span>
-                </div>
+                </div> */}
             </div>
             <div className='mentoring-block-content'>{content}</div>
             {/* <div className='tags'> */}

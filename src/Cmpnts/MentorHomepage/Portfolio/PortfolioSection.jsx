@@ -6,25 +6,26 @@ import './Portfolio.css'
 
 import { useRecoilState, useRecoilValue }  from 'recoil'
 import { isMorePortfolioClickedState, portfolioState } from './recoil';
-import { crntMentorState } from '../../../recoil';
+import { baseUrl, crntMentorState } from '../../../recoil';
 
 function PortfolioSection() {
     const crntMentor = useRecoilValue(crntMentorState)
     const [isMorePortfolioClicked, setIsMorePortfolioClicked] = useRecoilState(isMorePortfolioClickedState)
     const [portfolios, setPortfolios] = useRecoilState(portfolioState)
 
-    // useEffect(() => {
-    //     if (crntMentor) {
-    //       fetch(`api/portfolio/mentor?userId=${crntMentor.id}`, { method: 'GET' })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //           setPortfolios(data)
-    //       })
-    //       .catch(error => {
-    //         console.error('Error fetching mentor portfolio:', error);
-    //       });
-    //     }
-    //   }, []);
+    useEffect(() => {
+        if (crntMentor) {
+          fetch(`${baseUrl}/api/portfolio?userId=${crntMentor.userId}`, { method: 'GET' })
+            .then(response => response.json())
+            .then(data => {
+                setPortfolios(data.data.portfolios)
+            //   setPortfolios(data)
+          })
+          .catch(error => {
+            console.error('Error fetching mentor portfolio:', error);
+          });
+        }
+      }, []);
     return (
         <>
             <div className='pf_section-upper'>

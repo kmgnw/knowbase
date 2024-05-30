@@ -80,6 +80,11 @@ export const isRoadmapEditClickedState = atom({
     default: false
 })
 
+export const isQAEditClickedState = atom({
+    key: 'isQAEditClickedState',
+    default: false
+})
+
 export const isStrengthEditClickedState = atom({
     key: 'isStrengthEditClickedState',
     default: false

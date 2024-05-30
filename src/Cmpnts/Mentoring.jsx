@@ -7,12 +7,12 @@ import PaginationExample from './Pagination'
 
 import { useNavigate } from 'react-router-dom'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { crntMentorState, crntClickedCategoriesState, crntClickedCategoryState, mentorListState } from '../recoil'
+import { crntMentorState, crntClickedCategoriesState, crntClickedCategoryState, mentorListState, baseUrl } from '../recoil'
 import { useEffect } from 'react'
 
 function Mentoring (){
     const navigator = useNavigate()
-    const mentorList = useRecoilValue(mentorListState)
+    const [mentorList, setMentorList] = useRecoilState(mentorListState)
     const [crntMentor, setCrntMentor] = useRecoilState(crntMentorState)
     const [crntClickedCategories, setCrntClickedCategories] = useRecoilState(crntClickedCategoriesState)
     const [crntClickedCategory, setCrntClickedCategory] = useRecoilState(crntClickedCategoryState)
@@ -24,20 +24,20 @@ function Mentoring (){
     }
 
     useEffect(()=>{
-        console.log(mentorList)
         setCrntClickedCategory('조회순')
         setCrntClickedCategories([])
+        fetch(`${baseUrl}/api/user/mentors/all`, {method: "GET"})
+        .then((res) => res.json())
+          .then((data) => {
+              setMentorList(data.data.mentors);
+          })
+          .catch((error) => {
+              console.error("Error fetching data: ", error);
+          });
     },[])
 
     
-      // fetch('api/user/all', {method: "GET"})
-        // .then((res) => res.json())
-        //   .then((data) => {
-        //       setMentorsInfo(data.mentors);
-        //   })
-        //   .catch((error) => {
-        //       console.error("Error fetching data: ", error);
-        //   });
+      
 
 
     return(

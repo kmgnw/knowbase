@@ -47,8 +47,28 @@
     height: 1px;
     width: 100%;
     background-color: lightgray;
-    margin-bottom: 19.5rem;
+    margin-bottom: 5.5rem;
 }
+
+.post_preview-imgs{
+    display: flex;
+    gap: 1vw;
+    margin-bottom: 5.5rem;
+}
+
+.post_preview-imgs > div{
+    width: 12vw;
+    height: 15rem;
+    border-radius: 10px;
+    object-fit:fill;
+}
+
+.post_preview-imgs > div > img{
+    width: 12vw;
+    height: 15rem;
+    border-radius: 10px;
+}
+
 .post_content-input{
     position: relative;
 }

@@ -14,7 +14,7 @@ import testImg from './assets/testImg.png'
 
 
 import { useEffect } from 'react';
-import { mentorListState, crntMentorState } from './recoil';
+import { mentorListState, crntUserState, menteeListState, crntMenteeState, baseUrl } from './recoil';
 import { useRecoilState } from 'recoil';
 
 
@@ -22,27 +22,66 @@ import { useRecoilState } from 'recoil';
 function App() {
 
   const [mentorList, setMentorList] = useRecoilState(mentorListState)
-  const [crntMentor, setCrntMentor] = useRecoilState(crntMentorState)
+  const [menteeList, setMenteeList] = useRecoilState(menteeListState)
+  const [crntUser, setCrntUser] = useRecoilState(crntUserState)
   useEffect(() => {
+    let isMentor = window.sessionStorage.getItem('isMentor')
+    console.log(isMentor)
+    let userid = window.sessionStorage.getItem('userid');
 
-    const mentors = [];
-    for (let i = 0; i < 60; i++) {
-      mentors.push({
-        "id": `${i}`,
-        "userName": `test`,
-        "name": i === 1 ? 'dfvfeoifjioe' : 'test',
-        "profileImgPath": testImg,
-        "mentorContent": "컨텐츠1",
-        "mentoringPath": testImg,
-        "isMentor": 1
-      });
-    }
-    setMentorList(mentors); // 올바른 상태 업데이트 함수 이름을 사용했는지 확인하세요.
-  }, []);
+    if(isMentor==="true"){
+          fetch(`http://52.78.165.203:8080/api/user/mentors/all`, { method: 'GET' })
+            .then(response => {
+              return response.json()
+            })
+            .then(data => {
+              const mentors = data.data.mentors
+              setMentorList(mentors)
+              console.log(mentors)
+              const crntMentor = mentors.find((e) => {
+                return e.userId === parseInt(userid);
+              })
+              setCrntUser(crntMentor)
+              console.log("crntMentor : ",crntMentor)
+
+              fetch(`http://52.78.165.203:8080/api/user/mentees/all`, { method: 'GET' })
+              .then(response => {
+                return response.json()
+              })
+              .then(data => {
+                const mentees = data.data.mentees
+                setMenteeList(mentees)
+              })
+
+          })
+          .catch(error => {
+            console.error('Error fetching mentor portfolio:', error);
+          });
+    }else{
+      fetch(`http://52.78.165.203:8080/api/user/mentees/all`, { method: 'GET' })
+            .then(response => {
+              return response.json()
+            })
+            .then(data => {
+              const mentees = data.data.mentees
+              setMenteeList(mentees)
+              console.log(mentees)
+              const crntMentee = mentees.find((e) => {
+                return e.userId === parseInt(userid);
+              })
+              setCrntUser(crntMentee)
+              console.log("crntMentee : ",crntMentee)
+              
+          })
+          .catch(error => {
+            console.error('Error fetching mentor portfolio:', error);
+          });
+    };
+    }, []);
   
-  useEffect(() => {
-    console.log(mentorList);
-  }, [mentorList]);
+    useEffect(() => {
+      console.log(mentorList);
+    }, [mentorList]);
   
 
 

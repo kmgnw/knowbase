@@ -1,28 +1,28 @@
 // StylingSection.js
-import React from 'react';
+import { useEffect } from 'react';
 import './Portfolio.css'
 
 import { useRecoilState } from 'recoil'
 import { isMoreStylingClickedState, stylingsState } from './recoil';
-import { crntMentorState } from '../../../recoil';
+import { baseUrl, crntMentorState } from '../../../recoil';
 
 function StylingSection({ stylingImgs }) {
     const [isMoreStylingClicked, setIsMoreStylingClicked] = useRecoilState(isMoreStylingClickedState)
     const [crntMentor, setCrntMentor] = useRecoilState(crntMentorState)
     const [stylings, setStylings] = useRecoilState(stylingsState)
 
-    // useEffect(() => {
-    //     if (crntMentor) {
-    //       fetch(`api/homestyle/mentor?userId=${crntMentor.id}`, { method: 'GET' })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //              stylings = data.homestylings
-    //       })
-    //       .catch(error => {
-    //         console.error('Error fetching mentor portfolio:', error);
-    //       });
-    //     }
-    //   }, []);
+    useEffect(() => {
+        if (crntMentor) {
+          fetch(`${baseUrl}/api/homeStyle?userId=${crntMentor.userId}`, { method: 'GET' })
+            .then(response => response.json())
+            .then(data => {
+                 setStylings(data.data.homestylings)
+          })
+          .catch(error => {
+            console.error('Error fetching mentor portfolio:', error);
+          });
+        }
+      }, []);
     return (
         <>
             <div style={{display: 'flex', justifyContent: 'space-between'}}>

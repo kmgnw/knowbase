@@ -2,7 +2,9 @@
     position: absolute;
     top: 100px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     width: 100%;
 }
 
@@ -45,8 +47,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(212, 211, 211, 0.50); /* 원하는 색상과 투명도 */
-    border-radius: 50%; /* 동그란 형태 */
+    background-color: rgba(212, 211, 211, 0.50);
+    border-radius: 50%;
 }
 .edit-prof_gallery{
     position: absolute;
@@ -100,16 +102,58 @@ line-height: normal;
     display: flex;
     justify-content: center;
     align-items: center;
-
     width: 12.7vw;
     height: 6rem;
     border-radius: 10px;
     background: #1CA764;
     color: #FFF;
-text-align: center;
-font-family: "Noto Sans";
-font-size: 14px;
-font-style: normal;
-font-weight: 600;
-line-height: normal;
+    text-align: center;
+    font-family: "Noto Sans";
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+
+
+.ep_promotion-title{
+    color: #000;
+    text-align: center;
+    font-family: "Noto Sans";
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 4rem;
+}
+
+.ep_edit-prof_profile-img-wrap{
+    display: flex;
+    justify-content: center;
+}
+
+.ep_edit-prof_profile-img{
+    position: relative;
+    width: 14vw;
+    aspect-ratio: 1/1;
+    object-fit: contain;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 10.5rem;
+}
+
+.ep_edit-prof_profile-img > img{
+    width: 14vw;
+    aspect-ratio: 1/1;
+}
+
+.ep_edit-prof-img-overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background-color: rgba(212, 211, 211, 0.50);
 }

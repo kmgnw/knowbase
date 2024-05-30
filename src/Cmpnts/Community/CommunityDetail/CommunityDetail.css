@@ -78,6 +78,7 @@ margin-bottom: 4.3rem;
 
 .cmd_content{
     margin-bottom: 10rem;
+    font-size: 1.8rem;
     white-space: normal; /* 여러 줄로 표시 */
     word-wrap: break-word; /* 긴 단어를 줄 바꿈 */
     overflow-wrap: break-word; /* 긴 단어를 줄 바꿈 */

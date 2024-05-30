@@ -1,24 +1,35 @@
 import '../Styles/MentiCmtsTab.css'
 import Comment from '../../Community/CommunityDetail/Comment/Comment';
-import { useRecoilState } from 'recoil'
-import { postState, crntPostIdxState } from '../../../recoil';
+import { useRecoilValue } from 'recoil'
+import { postState, crntMenteeState, baseUrl } from '../../../recoil';
+import { useEffect, useState } from 'react';
 
 function MentiCmtsTab(){
-    // dummy
-    const [posts, setPosts] = useRecoilState(postState)
-    const crntPostIdx = 0
+    const crntMentee = useRecoilValue(crntMenteeState)
+    const [myCmtList, setMyCmtList] = useState([])
+    useEffect(()=>{
+        fetch(`${baseUrl}/api/comment/my?userId=${crntMentee.userId}`, {method: 'GET'})
+        .then(res=>res.json())
+        .then(data=>{
+            setMyCmtList(data.data.comments)
+        })
+    }, [])
     return (
     <div className='mct_wrap'>
         <div className='mtt_title'>내가 작성한 댓글</div>
-        {posts[crntPostIdx].cmts?.map((e,i)=>(
+        {myCmtList.map((e,i)=>(
             <div className='mct_cmt-wrap'>
             <Comment 
                 key={i}
-                name= {e.name}
-                img= {e.img}
-                grade = {e.grade}
-                content = {e.content}
-                likes={e.likes}
+                name= {e.nickname}
+                img= {e.profImgPath}
+                grade = {e.isMentor}
+                content = {e.commentContent}
+                likes={e.likeCount}
+                isLike={e.isLike}
+                isAdopt={e.isAdopt}
+                isBtnsInit={false}
+                isCmtIdentified={true}
             />
             </div>
         ))}

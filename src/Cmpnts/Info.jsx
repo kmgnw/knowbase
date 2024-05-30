@@ -107,7 +107,7 @@ function Info({title: initialTitle, content: initialContent, profilePic = '', na
                     <img src={search} />
                 </div>
             </div>
-            <DropdownSingleClickable title={'최신순'} children={['최신순', '댓글 많은 순', '댓글 적은 순']} onClick={mt_dropdownHandler} 
+            <DropdownSingleClickable title={'최신순'} children={['최신순', '별점 높은 순', '별점 낮은 순']} onClick={mt_dropdownHandler} 
 />
             </div>
         </div>
@@ -121,7 +121,7 @@ function Info({title: initialTitle, content: initialContent, profilePic = '', na
 
         <div ref={cm_dropdownRef} className='cm_dropdown-wrap'>
             <div>
-                <DropdownSingleClickable title='최신순' children={['조회순', '인기순', '별점 높은순', '별점 낮은순']} onClick={cm_dropdownHandler} />
+                <DropdownSingleClickable title='최신순' children={['조회순', '댓글 많은 순', '댓글 적은 순']} onClick={cm_dropdownHandler} />
             </div>
         </div>
 

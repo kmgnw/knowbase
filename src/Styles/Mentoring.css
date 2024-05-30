@@ -1,7 +1,6 @@
 .block-grid{
     margin-top: 5rem;
     display: grid;
-    align-items: center;
     grid-template-columns: repeat(4, 1fr);
     gap: 1vw
 }
