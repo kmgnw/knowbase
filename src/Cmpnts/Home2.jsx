@@ -1,6 +1,12 @@
 import Header from './Header/Header';
 import Info from './Info';
 import '../Styles/Home.css'
+// import Footer from './Footer/Footer'
+
+import { useEffect } from 'react';
+import { mentorInfoState, crntMentorIdxState } from '../recoil';
+import { useRecoilState } from 'recoil';
+
 import mentor from '../assets/home/mentor.svg'
 import mentee from '../assets/home/mentee.svg'
 import GreenBubble from '../assets/home/GreenBubble';
@@ -9,38 +15,10 @@ import MentoringImage1 from '../assets/home/MentoringImage1'
 import Ex1 from '../assets/home/Ex1.svg'
 import Ex2 from '../assets/home/Ex2.svg'
 import Ex3 from '../assets/home/Ex3.svg'
-import Notice from '../assets/home/Notice.svg'
-import NoticeBackground from  '../assets/home/NoticeBackground.svg'
-import HomeLogo1 from '../assets/HomeLogo1'
-import HomeLogo2 from '../assets/HomeLogo2'
-import HomeLogo3 from '../assets/HomeLogo3'
-import Footer from '../Cmpnts/Footer/Footer'
-
 function Home() {
     return (
         <>
         <Header />
-        <div className="notice_wrap">
-            <img className="overlay_gray" src={NoticeBackground}/>
-            <img className="main_img" src={Notice}/>
-            <div className="overlay_notice_comment">
-                <div className="notice_top"> Know BASE,</div>
-                <div className="notice_center">내 취향인 <br/>홈스타일링을<br/>시작할 수 있는 곳!</div>
-                <div className="notice_bottom">시작이 가장 어려운 홈스타일링,<br/>이젠 멘토링 받으며 쉽게 시작해보세요</div>
-            </div>
-            <div className="notice_imgs">
-                <div
-                    ><HomeLogo1/>
-                    <div className="home2"><HomeLogo2/>
-                    <div className="home2_circle"></div></div>
-                </div>
-                <div> 
-                    <HomeLogo3/>
-                    <div className="home4"><HomeLogo1/>
-                    <div className="home4_circle"></div></div>
-                </div>
-            </div>
-        </div>
         <div className="background_wrap">
         <div className="top_text"> Know BASE 는<br/> 이런 분들을 위한 서비스예요</div>
         <div className="mentor_wrap">
@@ -76,7 +54,7 @@ function Home() {
         </div>
         
         <div className="users">
-            <p> Know Base는</p>
+            <p style={{marginTop: '22.4rem'}}> Know Base는</p>
             <div className="circle_wrap"> 
                 <div className="circle1"></div>
                 <div className="circle2"></div>
@@ -91,7 +69,7 @@ function Home() {
             
         </div>
         <div className="mentoring_services">
-            <p>멘토링 서비스</p>
+            <p style={{marginTop: '37.4rem'}}>멘토링 서비스</p>
             <div className="mentoring_text">
                 <div>이제 내가<b>원하는 멘토</b>를 선택해 <b>홈스타일링</b>을 진행해보세요!</div>
                 <div>Know BASE의 멘토가 <b>1대1</b>로 홈스타일링의 <b>처음부터 끝</b>까지 책임져 드립니다!</div>
@@ -118,7 +96,7 @@ function Home() {
         <span>‘홈스타일링’</span>
         <div>Know BASE 에서 멘토링 받으며 시작하기</div>
         </div>
-        <Footer />
+        {/* <Footer /> */}
         </>
     );
 }

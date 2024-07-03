@@ -75,13 +75,13 @@ function ReviewModal({ name, title, content, imgs, date, starRating, term, budge
         <div className="modal_pics-wrap">
               <div>
                 <div className="modal_pic">
-                  <img src={crntClickedReview.before} alt="before" />
+                  <img src={crntClickedReview.beforeReImgPath} alt="before" />
                 </div>
                 <div className="modal_caption">before</div>
               </div>
               <div>
                 <div className="modal_pic">
-                  <img src={crntClickedReview.after} alt="after" />
+                  <img src={crntClickedReview.afterReImgPath} alt="after" />
                 </div>
                 <div className="modal_caption">after</div>
               </div>

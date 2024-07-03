@@ -21,6 +21,7 @@ function CommunityDetail() {
     const [crntMentor, setCrntMentor] = useRecoilState(crntMentorState)
     const [crntMentee, setCrntMentee] = useRecoilState(crntMenteeState)
     const [posts, setPosts] = useRecoilState(postState)
+    const [cmtList, setCmtList] = useState()
 
     function findMentor(userid) {
         let mentor = mentorList.find((e) => {
@@ -50,9 +51,25 @@ function CommunityDetail() {
     })
     .then(res => res.json())
     .then(data=>console.log(data))
-
+    setCmtList([...cmtList, {
+        "userId" : crntUser.userId,
+        "postId" : crntPost.postId,
+        "commentContent" : cmtInput,
+        "commentId": cmtList.length,
+        "userId": crntUser.userId,
+        "nickname": crntUser.nickName,
+        "profImgPath": crntUser.profileImgPath,
+        "isMentor": crntUser.isMentor,
+        "likeCount" : 0,
+        "isLike": false,
+        "isAdopt" : false
+    }])
     setCmtInput('')
     }
+
+    useEffect(()=>{
+
+    },[cmtInput])
 
     useEffect(() => {
 
@@ -76,6 +93,7 @@ function CommunityDetail() {
                 console.log('cmt is')
                 console.log(data.data.comments)
                 setCrntPost({...crntPost, cmts: data.data.comments})
+                setCmtList(data.data.comments)
         })
         .catch((error) => {
         console.error("Error fetching data: ", error);
@@ -88,11 +106,27 @@ function CommunityDetail() {
             console.log('tres')
         }
     }, [])
+
+    function deletePost(){
+        console.log(crntPost.postId)
+        fetch(`${baseUrl}/api/post?postId=${crntPost.postId}`, {method: 'DELETE'})
+        .then((res)=>res.json())
+        .then((data)=>console.log(data))
+        navigator('/community')
+
+        setPosts(posts.filter((e)=>{
+            return crntPost.postId !== e.postId
+        }))
+        navigator('/community')
+    }
     return (
         <>
             <Header />
             <div className='side-margin-142vw-lined'>
-                <div className='cmd_title'>{crntPost.postTitle}</div>
+                <div className='cmd_title'>
+                    <div>{crntPost.postTitle}</div>
+                    <div onClick={deletePost}>삭제</div>
+                    </div>
                 <div className='cmd_line'></div>
                 <div className='cmd_profile-wrap'>
                     <div>
@@ -106,7 +140,7 @@ function CommunityDetail() {
                     </div>
                 </div>
                 <div className='cmd_postImg'>
-                <img src={crntPost.postImgPath} />
+                <img src={crntPost.postImgPath ?? testImg} />
                 </ div>
                 <div className='cmd_content'>
                     {crntPost.postContent}
@@ -131,7 +165,7 @@ function CommunityDetail() {
                                 <div className='cmd_submit' onClick={cmtSubmitHandler}>등록</div>
                             </div>
                         </div>
-                        {crntPost.cmts?.map((comment, i) => (
+                        {cmtList?.map((comment, i) => (
                             <div key={i} style={{ marginBottom: '3.8rem' }}>
                                 <Comment
                                     userId = {comment.userId}

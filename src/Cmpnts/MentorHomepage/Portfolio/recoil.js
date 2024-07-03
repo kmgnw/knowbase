@@ -1,7 +1,9 @@
 import { atom } from 'recoil'
 import testImg from '../../../assets/testImg.png'
 import postImg from '../../../assets/postImg.png'
-import stylingImg from '../../../assets/stylingImg.png'
+import stylingImg1 from '../../../assets/stylingImg.png'
+import styling2 from '../../../assets/styling2.png'
+import styling3 from '../../../assets/styling3.png'
 
 export const portfolioState = atom({
     key: 'portfolioState',
@@ -29,31 +31,27 @@ export const stylingsState = atom({
         {
             "homestylingId": 1,
             "homestylingTitle": "타이틀1",
-            "homestylingImagePath": stylingImg,
-            "homestylingDescription": "설명1",
+            "homestylingImagePath": stylingImg1,
+            "homestylingDescription": "3평 원룸 홈 스타일링",
             "updatedAt": null
         },
+
+        {
+            "homestylingId": 1,
+            "homestylingTitle": "타이틀1",
+            "homestylingImagePath": styling2,
+            "homestylingDescription": "3평 원룸 홈 스타일링",
+            "updatedAt": null
+        },
+
+
         {
             "homestylingId": 2,
             "homestylingTitle": "타이틀2",
-            "homestylingImagePath": stylingImg,
+            "homestylingImagePath": styling3,
             "homestylingDescription": "설명2",  
             "updatedAt": null
-        },
-        {
-            "homestylingId": 3,
-            "homestylingTitle": "타이틀3",
-            "homestylingImagePath": stylingImg,
-            "homestylingDescription": "설명3",
-            "updatedAt": null
-        },
-        {
-            "homestylingId": 4,
-            "homestylingTitle": "타이틀4",
-            "homestylingImagePath": stylingImg,
-            "homestylingDescription": "설명4",
-            "updatedAt": null
-        },
+        }
     ]
 })
 

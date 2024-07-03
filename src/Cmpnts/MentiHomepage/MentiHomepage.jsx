@@ -11,12 +11,12 @@ import { useRecoilValue, useRecoilState } from
 import MentiReviewsTab from './Tabs/MentiReviewsTab';
 import { isIdentifiedUser } from '../validator';
 
-import { selectedMentiNavbarState, selectedMainNavbarState, crntMenteeState } from '../../recoil';
+import { selectedMentiNavbarState, selectedMainNavbarState, crntMenteeState, baseUrl } from '../../recoil';
 import { useEffect, useState } from 'react';
 import Portfolio from '../MentorHomepage/Portfolio/Portfolio';
 import Button from '../Model/Button';
 import { useNavigate } from 'react-router-dom';
-
+import { crntUserState } from '../../recoil';
 
 function MentiHomepage() {
     const [isIdentified, setIsIdentified] = useState(false)
@@ -66,7 +66,7 @@ function MentiHomepage() {
 
                 <div className='mh_profile-wrap'>
                     <div className='mh_proflie-img-wrap'>
-                        <img src='mentiInfos.img' />
+                        <img src={testImg} />
                     </div>
                     <div className='mh_proflie-info-wrap'>
                     <div className='mh_name'>{crntMentee?.nickName || '닉네임 없음'}</div>

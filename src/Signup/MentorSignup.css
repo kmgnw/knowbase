@@ -1,0 +1,180 @@
+.mentee_signup_wrap{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.input_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5rem;
+}
+
+.input_name, .input_id, .input_pw, .input_pwconfirmed, .input_nickname, .input_certificate{
+    margin-bottom: 1rem;
+}
+
+.dropdwon_comment{
+    color: rgba(0, 0, 0, 0.40);
+    font-family: "Noto Sans";
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    padding-left: 2rem;
+    margin-top: 1rem;
+}
+.dropdown{
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    align-items: left;
+    justify-content: left;
+}
+.gender_wrapper, .age_wrapper{
+    position: relative;
+    display: inline-block;
+    margin-left: 1rem;
+}
+
+.selected_gender, .selected_age{
+    width: 7vw;
+    height: 3vh;
+    padding: 0.5rem;
+    border: 0;
+    border-radius: 5px;
+    background-color:#F0EFEF;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 텍스트와 아이콘 사이에 공간을 만듭니다 */
+    color: #908F8F;
+    text-align: center;
+    font-family: "Noto Sans";
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.selected_gender.selected, .selected_age.selected {
+    background-color: #fff; /* 초록색 배경 */
+    border: 1px solid #0A7700;
+    color: #0A7700; /* 초록색 글자 */
+}
+.dropdown_icon{
+    position: absolute;
+    right: 0.8rem; /* 오른쪽 여백 설정 */
+    top: 50%;
+}
+.gender_dropdown, .age_dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+    border: 0;
+    background-color: #fff;
+    border-radius: 5px;
+    
+}
+.gender_option, .age_option {
+    background-color: #fff;
+    color: #000;
+    width: 7vw;
+    height: 3vh;
+    text-align: center;
+    justify-content: center;
+    padding: 0.5rem;
+    font-family: "Noto Sans";
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.input_info b {
+    display: block;
+    color: #000;
+    font-family: "Noto Sans";
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-bottom: 1rem;
+}
+
+.input_field {
+    width: 33vw;
+    height: 6vh;
+    border-radius: 5px;
+    border: 0;
+    background: #F0EFEF;
+}
+
+
+.input_field::placeholder {
+    color: rgba(0, 0, 0, 0.40);
+    font-family: "Noto Sans";
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    padding-left: 2rem;
+}
+.id_wrap,
+.nickname_wrap,
+.certificate_wrap {
+    position: relative;
+}
+
+.check_double,
+.input_file_btn {
+    position: absolute;
+    width: 7vw;
+    height: 5vh;
+    top: 0;
+    bottom: 0;
+    right: 5px;
+    margin: auto 0;
+    border-radius: 5px;
+    color: rgba(0, 0, 0, 0.40);
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+}
+.join_btn {
+    height: 6vh;
+    width: 20vw;
+    
+    font-family: "Noto Sans";
+    font-weight: 600;
+    border-radius: 5px;
+    margin-top: 5rem; 
+    border-width: 0;
+    color: rgba(0, 0, 0, 0.40);
+    align-items: center;
+}
+
+.join_btn:disabled {
+    background-color: #F0EFEF;
+    color: rgba(0, 0, 0, 0.40);
+}
+
+.join_btn:enabled {
+    color: white;
+    background-color: #1CA764;
+}
+
+.signup_intro{
+    color: rgba(0, 0, 0, 0.40);
+    text-align: center;
+    font-family: "Noto Sans";
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}

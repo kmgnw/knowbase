@@ -167,7 +167,7 @@ function Comment({userId, isMentor, name, img, grade, content, likes, isIdentifi
                         <div className="cmt_name" onClick={cmtClickedHandler}>{name}</div>
                         <div className="cmt_grade">{grade}</div>
                     </div>
-                        <div className={isAdopt? 'cmt_select' : 'cmt_unselect'} onClick={(e)=>adoptClickHandler(e)}>채택</div>
+                        <div className={isAdopt? 'cmt_select' : 'cmt_unselect'} onClick={(e)=>adoptClickHandler(e)}><div>채택</div></div>
                 </div>
                 <div style={{display: 'flex',justifyContent: 'space-between'}}>
                 <input className='cmt_content' type='text' value={cmtContent} onChange={(e) => setCmtContent(e.target.value)} readOnly={readable} />

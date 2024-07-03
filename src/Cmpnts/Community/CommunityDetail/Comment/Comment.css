@@ -22,7 +22,7 @@
 .cmt_profile-wrap > div:nth-child(2){
     display: flex;
     flex-direction: column;
-    justify-content: end;
+    /* justify-content: end; */
     gap: 3.3rem;
 }
 
@@ -54,14 +54,15 @@ height: 25px;
 background: #1CA764;
     color: #FFF;
 text-align: center;
-font-family: "Noto Sans";
-font-size: 16px;
+font-family: Noto Sans;
+font-size: 1.4rem;
 font-style: normal;
 font-weight: 400;
 line-height: normal;
 display: flex;
 justify-content: center;
 align-items: center;
+cursor: pointer;
 }
 
 .cmt_unselect{
@@ -79,9 +80,11 @@ align-items: center;
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .cmt_edit-unselect{
+    cursor: pointer;
     width: 58px;
     height: 25px;
     border-radius: 2px;

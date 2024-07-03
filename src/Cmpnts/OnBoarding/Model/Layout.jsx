@@ -3,16 +3,19 @@ import '../Styles/Layout.css'
 import step_empty from '../../../assets/stepImg_empty.png'
 import step_filled from '../../../assets/stepImg_filled.png'
 import { crntCategoryIdxState, infoState, availableTimeState, idState, strengthState, beforeMentoringState, whileMentoringState, afterMentoringState, clickedDwellingTypeState, clickedSpaceTypeState, clickedMentoringTypeState, clickedInterestTypeState } from '../recoil'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useRef } from 'react'
 import { baseUrl } from '../../../recoil'
+import { crntUserState } from '../../../recoil'
 
 function Layout({element}) {
     let navigator = useNavigate()
 
     let nextBtnRef = useRef(null)
     let prevBtnRef = useRef(null)
+
+    const crntUser = useRecoilValue(crntUserState)
 
     let [crntCategoryIdx, setCrntCategoryIdx] = useRecoilState(crntCategoryIdxState);
     const steps = ['카테고리 선택', '멘토 소개 작성', '로드맵 작성', '가입완료'];
@@ -55,6 +58,22 @@ function Layout({element}) {
     
     async function nextBtnHandler() {
         if (crntCategoryIdx === 0 && categoryCondition) {
+            fetch(`${baseUrl}/api/category/create`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userId: crntUser.userId,
+                    housingType: dwellings,
+                    spaceType: spaces,
+                    style: mentorings,
+                    interest:interests
+                })
+            })
+            .then(res => res.json() )
+            .then(data => console.log(data))
+
             btnColoredWhen(['']); // 버튼 색상 초기화
             setCrntCategoryIdx(crntCategoryIdx + 1);
         } else if (crntCategoryIdx === 1 && infoCondition) {

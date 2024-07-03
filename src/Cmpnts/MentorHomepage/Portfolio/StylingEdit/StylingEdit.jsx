@@ -6,15 +6,36 @@ import { useRecoilState } from 'recoil';
 import '../PortfolioEdit/PortfolioEdit.css';
 import { useEffect } from 'react';
 import { isMorePortfolioClickedState, isMoreStylingClickedState, isStylingEditClickedState,stylingEditInputState, stylingsState } from '../recoil';
+import { baseUrl } from '../../../../recoil';
+
 
 function StylingEdit() {
   const [isStylingEditClicked, setIsStylingEditClicked] = useRecoilState(isStylingEditClickedState);
   const [stylingEditInput, setStylingEditInput] = useRecoilState(stylingEditInputState)
   const [stylings, setStylings] = useRecoilState(stylingsState)
+  const formData = new FormData();
+
 
   function uploadBtnClickHandler(){
     console.log(stylingEditInput);
-    
+formData.append('homestylingCreateDto', new Blob([JSON.stringify({
+    userId: 1,
+    homestylingTitle:"수정 타이틀3",
+    homestylingDescription:"수정 설명3",
+    homestylingImg:"수정 사진3"
+})], { type: "application/json" }));
+
+// POST 요청 보내기
+fetch(`${baseUrl}/api/homeStyle`, {
+  method: 'POST',
+  body: formData
+})
+.then(response => response.json())
+.then(data =>console.log(data))
+.catch(error => console.error('Error:', error));
+
+
+
     let newNode = {
       homestylingTitle: stylingEditInput.title || '',
       homestylingDescription: stylingEditInput.content || '',
@@ -40,6 +61,7 @@ function StylingEdit() {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
+      formData.append('homestylingImg', file); // file은 사용자가 
       reader.onloadend = () => {
         setStylingEditInput((prevState) => ({
           ...prevState,

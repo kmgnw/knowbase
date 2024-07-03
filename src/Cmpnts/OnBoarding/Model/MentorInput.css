@@ -110,6 +110,7 @@ textarea:focus {
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    cursor: pointer;
 }
 
 .modify_btn{
@@ -125,4 +126,5 @@ textarea:focus {
     line-height: normal;
     width: 18vw;
     height: 7rem;
+    cursor: pointer;
 }

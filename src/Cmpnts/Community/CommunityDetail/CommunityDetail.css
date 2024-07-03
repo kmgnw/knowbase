@@ -3,6 +3,11 @@
 }
 
 .cmd_title{
+    display: flex;
+    justify-content: space-between;
+}
+
+.cmd_title > div{
     /* margin-top: 9.1rem; */
     color: #000;
 font-family: "Noto Sans";
@@ -36,11 +41,13 @@ margin-bottom: 4.3rem;
     aspect-ratio: 1/1;
     border-radius: 50%;
     object-fit:contain;
+    cursor: pointer;
 }
 .cmd_profile-img >img{
     width: 2.6vw;
     aspect-ratio: 1/1;
     border-radius: 50%;
+    cursor: pointer;
 }
 
 .cmd_name{
@@ -50,6 +57,7 @@ margin-bottom: 4.3rem;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+    cursor: pointer;
 }
 
 .cmd_date{
@@ -68,20 +76,22 @@ margin-bottom: 4.3rem;
     width: 100%;
     height: 74.8rem;
     object-fit: fill;
+    margin-bottom: 2rem
 }
 
 .cmd_postImg > img{
     width: 100%;
     height: 74.8rem;
+    margin-bottom: 2rem
 }
 
 
 .cmd_content{
     margin-bottom: 10rem;
     font-size: 1.8rem;
-    white-space: normal; /* 여러 줄로 표시 */
-    word-wrap: break-word; /* 긴 단어를 줄 바꿈 */
-    overflow-wrap: break-word; /* 긴 단어를 줄 바꿈 */
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 .cmd_cmts-info-wrap{
     display: flex;
@@ -92,7 +102,7 @@ margin-bottom: 4.3rem;
 .cmd_cmts-cnt{
     color: rgba(0, 0, 0, 0.40);
 font-family: "Noto Sans";
-font-size: 20px;
+font-size: 2rem;
 font-style: normal;
 font-weight: 600;
 line-height: normal;
@@ -153,6 +163,7 @@ line-height: normal;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    cursor: pointer;
 }
 
 .cmd_input-wrap> div >input::placeholder {

@@ -48,7 +48,7 @@ function DropdownMultiClickable({title, children}){
                     style: content
                 }));
             break;
-            case '스타일':
+            case '관심사':
                 if(crntClickedCategories.interest === content){
 
                 }

@@ -9,6 +9,7 @@
     background-color:#1CA764;
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .mh_title{
@@ -19,6 +20,7 @@
     font-weight: 600;
     line-height: normal;
     margin-bottom: 2.7rem;
+    cursor: pointer;
 }
 
 
@@ -109,6 +111,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    cursor: pointer;
 }
 .mh_req-btn{
     display: flex;
@@ -126,6 +129,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    cursor: pointer;
 }
 
 .mh_req-btn-identified{

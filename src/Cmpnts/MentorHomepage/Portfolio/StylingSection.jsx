@@ -11,18 +11,18 @@ function StylingSection({ stylingImgs }) {
     const [crntMentor, setCrntMentor] = useRecoilState(crntMentorState)
     const [stylings, setStylings] = useRecoilState(stylingsState)
 
-    useEffect(() => {
-        if (crntMentor) {
-          fetch(`${baseUrl}/api/homeStyle?userId=${crntMentor.userId}`, { method: 'GET' })
-            .then(response => response.json())
-            .then(data => {
-                 setStylings(data.data.homestylings)
-          })
-          .catch(error => {
-            console.error('Error fetching mentor portfolio:', error);
-          });
-        }
-      }, []);
+    // useEffect(() => {
+    //     if (crntMentor) {
+    //       fetch(`${baseUrl}/api/homeStyle?userId=${crntMentor.userId}`, { method: 'GET' })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //              setStylings(data.data.homestylings)
+    //       })
+    //       .catch(error => {
+    //         console.error('Error fetching mentor portfolio:', error);
+    //       });
+    //     }
+    //   }, []);
     return (
         <>
             <div style={{display: 'flex', justifyContent: 'space-between'}}>

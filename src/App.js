@@ -9,6 +9,9 @@ import EditProfile from './Cmpnts/EditProfile';
 import Post from './Cmpnts/Community/Post/Post';
 import OnBoarding from './Cmpnts/OnBoarding/OnBoarding.jsx';
 import { Routes, Route } from 'react-router-dom';
+import MenteeSignup from './Signup/MenteeSignup.jsx';
+import MentorSignup from './Signup/MentorSignup.jsx';
+
 
 import testImg from './assets/testImg.png'
 
@@ -96,6 +99,8 @@ function App() {
         <Route path="/post" element={<Post />} />
         <Route path="/edit_profile" element={<EditProfile />} />
         <Route path="/onboarding" element={<OnBoarding />} />
+        <Route path="/signup_mentee" element={<MenteeSignup />} />
+        <Route path="/signup_mentor" element={<MentorSignup />} />
     </Routes>
   );
 }

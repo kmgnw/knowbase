@@ -7,22 +7,21 @@ import './PortfolioEdit.css'
 import { useEffect } from 'react';
 import { isPortfolioEditClickedState, portfoilioEditInputState, portfolioState } from '../recoil';
 import { crntMentorState } from '../../../../recoil';
+import { crntUserState } from '../../../../recoil';
 function PortfolioEdit(){
     const [isPortfolioEditClicked, setIsPortfolioEditClicked] = useRecoilState(isPortfolioEditClickedState)
     const [portfolioEditInput, setPortfolioEditInput] = useRecoilState(portfoilioEditInputState)
     const [crntMentor, setCrntMentor] = useRecoilState(crntMentorState)
     const [portfolios, setPortfolios] = useRecoilState(portfolioState)
     let inputPhotos = []
+    const [crntUser, setCrntUser] = useRecoilState(crntUserState) 
 
     function handleFileChange(event) {
         const file = event.target.files[0];
         if (file) {
           const reader = new FileReader();
           reader.onloadend = () => {
-            setPortfolioEditInput((prevState) => ({
-              ...prevState,
-              img: reader.result
-            }));
+            setPortfolioEditInput({...portfolios, img: reader.result});
           };
           reader.readAsDataURL(file);
         }
@@ -31,7 +30,7 @@ function PortfolioEdit(){
 
       function uploadBtnHandler(){
         let newNode = {
-            userid: crntMentor.id,
+            porofolioId: portfolios.length,
             portfolioImagePath: portfolioEditInput.img || ''
           };
           console.log(newNode)

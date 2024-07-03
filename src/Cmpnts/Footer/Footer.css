@@ -1,0 +1,80 @@
+.footer_wrap{
+    width: 100vw;
+    height: 20vh;
+    background: #E5E5E5;
+    
+}
+.footer_logo_wrap{
+    display: flex;
+    flex-direction: row;
+    margin-left: 20vw;
+    padding-top: 5vh;
+    
+}
+.footer_info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.footer_info div{
+    color: #000;
+    font-family: "Noto Sans";
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    }
+.footer_contact{
+    margin-left: 20vw;
+
+    display: flex;
+    flex-direction: row;
+    
+}
+.footer_contact_mail{
+    color: #000;
+    font-family: "Noto Sans";
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    opacity: 0.5;
+
+    margin-right: 10vw;
+}
+.footer_contact_comment{
+    margin-left: 20vw;
+    color: #737373;
+    text-align: center;
+    font-family: "Noto Sans";
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    display: flex;
+    flex-direction: row;
+}
+.footer_contact_comment div{
+    margin-left: 3vw;
+    margin-right: 3vw;
+}
+.footer_line{
+    margin-left: 6vw;
+    margin-right: 6vw;
+    border: none; 
+    height: 3px; 
+    background-color: white; 
+    margin-top: 1.5vh;
+    margin-bottom: 2vh;
+}
+.footer_copyright{
+    color: #000;
+    font-family: Inter;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    opacity: 0.5;
+    margin-left: 20vw;
+    margin-top: 1vh;
+}

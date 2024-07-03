@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil'
 import { baseUrl, crntMentorState, postTitleState, postContentState, crntUserState } from '../../../recoil'
 import { useEffect, useRef } from 'react';
+import { postState } from '../../../recoil';
+
 function Post(){
     const[crntUser, setCrntUser] = useRecoilState(crntUserState)
     let btnRef = useRef(null)
@@ -15,24 +17,8 @@ function Post(){
     const [postImgs, setPostImgs]= useState([])
     const formData = new FormData()
     const navigator = useNavigate()
-    const [image, setImage] = useState('');
-
-
-    const onChangeImageInput = e => {
-        const file = e.target.files[0];
-        if (file) {
-            setImage(file);
-            formData.append('postImgPath', file);
-    
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setPostImgs((prevImgs) => [...prevImgs, reader.result]);
-                console.log(postImgs) 
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-    
+    const [image, setImage] = useState();
+    const [posts, setPosts] = useRecoilState(postState)
 
 
     function postTitleChange(e){
@@ -41,6 +27,8 @@ function Post(){
     function postContentChange(e){
         setPostContent(e)
     }
+
+
     useEffect(()=>{
         if(postContent !== ''&& postTitle !==''){
             btnRef.current.style.backgroundColor = '#1CA764'
@@ -49,45 +37,52 @@ function Post(){
         }
     },[postContent, postTitle])
 
-    function submitClickHandler(){
-        formData.append("userId", crntUser.userId)
-        formData.append("postTitle", postTitle)
-        formData.append("postContent", postContent)
-
-        console.log(crntUser.userId, postTitle, postContent)
-        fetch(`${baseUrl}/api/post`, {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json()) // 응답을 JSON으로 파싱
-        .then(data => {
-            // 성공적으로 데이터를 받아온 후의 처리
-            console.log(data);
-
-        })
-        .catch(error => {
-            // 오류 처리
-            console.error('Error:', error);
-        });
-        navigator('/community')
-        // uploadFileAWS()
-//     }
-    }
-
+    const onChangeImageInput = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            formData.append('postImg', file);
+            setImage(file);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPostImgs((prevImgs) => [...prevImgs, reader.result]);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
     
+    const submitClickHandler = () => {
+        let newPost = {
+             postId: posts.length,
+            postTitle: postTitle,
+            postContent: postContent,
+            postImgPath: postImgs[0],
+            nickname: crntUser.nickname,
+            userId : crntUser.userId,
+            postAuthorProfImg: crntUser.profileImgPath,
+            updatedAt: "2024-05-25"
+        }
+        setPosts([...posts, newPost])
+        console.log(posts)
+        navigator('/community')
+        // const post = {
+        //     userId: crntUser.userId,
+        //     postTitle: postTitle,
+        //     postContent: postContent,
+        // }
 
-    // function handleFileChange(event) {
-    //     const file = event.target.files[0];
-    //     if (file) {
-    //       const reader = new FileReader();
-    //       reader.onloadend = () => {
-    //         setPostImgs((prevImgs) => [...prevImgs, reader.result]);
-    //         // uploadFileAWS(file); 
-    //         console.log(postImgs)
-    //       };
-    //       reader.readAsDataURL(file);
-    //     }
-    //   }
+        // formData.append('post', JSON.stringify(post));
+        // for (let [key, value] of formData.entries()){
+        //     console.log(key, value)
+        // }
+
+        // fetch(`${baseUrl}/api/post`, {
+        //     method: 'POST',
+        //     body: formData
+        // })
+        // .then((response) => response.json())
+        // .then((data) => console.log(data))
+        // .catch((error) => console.error('Error:', error));
+    };
     
 return(
     <>
@@ -101,7 +96,7 @@ return(
         ></input>
         <div style={{display: "flex", gap:"1.2rem"}}>
         <div className='post_gallery'>
-        <input type="file" id="fileInput" accept="image/*" style={{display: 'none'}} onChange={onChangeImageInput}/>
+        <input type="file" id="fileInput" accept="image/*" style={{display: 'none'}} onChange={(e)=>onChangeImageInput(e)}/>
             <div><label for="fileInput" class="button">사진 첨부하기</label></div>
             </div>
             <div

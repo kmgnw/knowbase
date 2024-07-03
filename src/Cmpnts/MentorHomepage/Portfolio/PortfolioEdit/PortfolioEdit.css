@@ -17,10 +17,11 @@
     color: #FFF;
     text-align: center;
     font-family: "Noto Sans";
-    font-size: 18px;
+    font-size: 1.8rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    cursor: pointer;
 }
 
 .pf-edit_upload-btn > label {

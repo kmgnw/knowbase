@@ -34,14 +34,14 @@ export default function ReviewBlock({ review, editBtnHandler, deleteBtnHandler }
         <div className="mentroing_review_wrap">
             <div className="review_img_wrap">
                 <div className="before_img">
-                    <img src={review.before} alt="Before"/>
+                    <img src={review.beforeReImgPath} alt="Before"/>
                     <div>
                     <div className='review_text'>before</div>
                     </div>
                     
                 </div>
                 <div className="after_img">
-                    <img src={review.after} alt="After"/>
+                    <img src={review.afterReImgPath} alt="After"/>
                     <div />
                     <div className='review_text'>after</div>
                 </div>

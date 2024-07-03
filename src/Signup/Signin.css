@@ -1,0 +1,84 @@
+.header {
+    display: flex;
+    width: 100vw;
+    height: 10vh;
+    justify-content: center;
+    font-weight: bold;
+    align-items: center;
+  }
+  
+  .img_wrap {
+    margin: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .login_logo {
+    width: 20vw;
+    height: 30vh;
+  }
+  
+  .login_wrap { 
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: 1.5rem;
+  }
+  
+  .login_input {
+    display: block;
+    width: 33vw;
+    height: 5vh;
+    color: gray;
+    border-radius: 5px;
+    border-color: lightgray;
+    border-width: 0.5px;
+  }
+  
+
+  .login_btn {
+    height: 6vh;
+    width: 33vw;
+    background-color: #F0EFEF;
+    color: rgba(0, 0, 0, 0.40);
+    font-family: "Noto Sans";
+    font-weight: 500;
+    border-radius: 5px;
+    margin-top: 5rem; 
+    border-width: 0;
+  }
+  
+  .login_support {
+    display: flex; 
+    justify-content: space-between; 
+    width: 33vw; 
+    margin-bottom: 1rem; 
+    margin-top: 1rem;
+    opacity: 0.5;
+    font-size: 1.5rem;
+  }
+.promote{
+    opacity: 0.5;
+    font-size: 1.5rem;
+    margin-top: 10rem;
+}
+  .login_hr {
+    display: block;
+    width: 33vw;
+    color: rgba(0, 0, 0, 0.30); 
+    margin: 1rem 0; 
+    opacity: 0.5;
+  }
+  
+  .signup_btn {
+    height: 6vh;
+    width: 33vw;
+    background: rgba(0, 0, 0, 0.60);
+    color:#fff;
+    font-family: "Noto Sans";
+    font-weight: 500;
+    border-radius: 5px;
+    border-width: 0;
+  }
+   

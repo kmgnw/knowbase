@@ -83,37 +83,55 @@ function ReviewCreate (){
     const termChangeHandler = (e) => setReviewInput({ ...reviewInput, period: e.target.value });
     const budgetChangeHandler = (e) => setReviewInput({ ...reviewInput, budget: e.target.value });
 
-    const formData = new FormData();
-    function saveClickedHandler(){
-      let userid = parseInt(window.sessionStorage.getItem('userid'), 10);
-      // let now = new Date().toISOString();
-      // dateExtractor(now)
-      setIsReviewCreateClicked(false);
-      setReviewInput(prevState => ({...prevState, menteeId: userid , nickname: 'tmpNickName'}));
-      setReviewList(prevList => [...prevList, {...reviewInput, menteeId: userid , nickname: 'tmpNickName'}]);
-      console.log(crntMentor.userId, crntUser.userId, reviewInput.title, reviewInput.nickname);
+    // const formData = new FormData();
+    // function saveClickedHandler(){
+    //   let userid = parseInt(window.sessionStorage.getItem('userid'), 10);
+    //   // let now = new Date().toISOString();
+    //   // dateExtractor(now)
+    //   setIsReviewCreateClicked(false);
+    //   setReviewInput(prevState => ({...prevState, menteeId: userid , nickname: 'tmpNickName'}));
+    //   setReviewList(prevList => [...prevList, {...reviewInput, menteeId: crntUser.userId , nickname: crntUser.nickname}]);
+    //   console.log(crntMentor.userId, crntUser.userId, reviewInput.title, reviewInput.nickname);
     
       
-      formData.append('mentorId', 1);
-      formData.append('menteeId', 25);
-      formData.append('reviewTitle', 'reviewTitle');
-      formData.append('nickname', 'nickname');
-      formData.append('reviewContent', 'reviewContent');
-      formData.append('satisfaction', 3);
-      formData.append('period', 'period');
-      formData.append('budget', 'budget');
-      // if (beforeImgPath) formData.append('beforeImgPath', beforeImgPath);
-      // if (afterReImgPath) formData.append('afterReImgPath', afterReImgPath);
+    //   formData.append('mentorId', 1);
+    //   formData.append('menteeId', 25);
+    //   formData.append('reviewTitle', 'reviewTitle');
+    //   formData.append('nickname', 'nickname');
+    //   formData.append('reviewContent', 'reviewContent');
+    //   formData.append('satisfaction', 3);
+    //   formData.append('period', 'period');
+    //   formData.append('budget', 'budget');
+    //   // if (beforeImgPath) formData.append('beforeImgPath', beforeImgPath);
+    //   // if (afterReImgPath) formData.append('afterReImgPath', afterReImgPath);
       
-        fetch(`${baseUrl}/api/review`, {
-            method: 'POST',
-            body: formData,
-        })
-        .then((res) => res.json())
-        .then((data) => console.log(data))
-        .catch((error) => console.error('Error:', error));
-    };
-      
+    //     fetch(`${baseUrl}/api/review`, {
+    //         method: 'POST',
+    //         body: formData,
+    //     })
+    //     .then((res) => res.json())
+    //     .then((data) => console.log(data))
+    //     .catch((error) => console.error('Error:', error));
+    // };
+      function saveClickedHandler(){
+        setReviewList([...reviewList, {
+          reviewId: reviewList.length,
+          "mentorId": crntMentor.userId,
+          "menteeId": crntUser.userId,
+          "reviewTitle": reviewInput.reviewTitle,
+          "nickname": crntUser.nickname,
+          "date": "2024.05.31",
+          "beforeReImgPath": reviewInput.before,
+          "afterReImgPath": reviewInput.after,
+          "reviewContent": reviewInput.reviewContent,
+          "satisfaction": reviewInput.starRating,
+          "period": reviewInput.term,
+          "budget": reviewInput.budget
+        }])
+        setReviewInput({})
+        setIsReviewCreateClicked(false)
+        setIsReviewEditClicked(false)
+      }
       
     
     

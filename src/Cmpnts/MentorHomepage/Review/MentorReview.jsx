@@ -39,14 +39,14 @@ export default function MentorReview(){
     useEffect(()=>{
         console.log('crntUser id is', crntUser.userId)
         console.log('crntMentor id is', crntMentor.userId)
-        fetch(`${baseUrl}/api/review/myreview?userId=${parseInt(crntMentor.userId)}`, {method: 'GET'})
+        fetch(`${baseUrl}/api/review/myreview?userId=${crntMentor.userId}`, {method: 'GET'})
         .then(res => res.json())
         .then(data=> {
-            console.log(data)
+            console.log(data.data.review)
             setReviewList(data.data.review)
         })
 
-        fetch(`${baseUrl}/api/review/highstar?userId=${parseInt(crntMentor.userId)}`, {method: 'GET'})
+        fetch(`${baseUrl}/api/review/highstar?userId=${crntMentor.userId}`, {method: 'GET'})
         .then(res => res.json())
         .then(data => {setStarRating(parseInt(data.data.highStar, 10))}) 
     }, [])
@@ -98,7 +98,7 @@ export default function MentorReview(){
             <span className="star_rating">
             {renderRatingStars()}
             </span>
-            <span className="number_rating">{3}</span>
+            <span className="number_rating">{starRating}</span>
             </div>
             <button className="review_btn" onClick={newReviewHandler}> 후기 작성하기</button>
             </div>

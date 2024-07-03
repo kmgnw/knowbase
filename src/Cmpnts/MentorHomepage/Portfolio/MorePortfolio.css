@@ -24,6 +24,7 @@
     align-items: center;
     border-radius: 5px;
     background-color:#1CA764;
+    cursor: pointer;
 }
 
 .portfolio_edit-btn > div {
@@ -34,4 +35,5 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    cursor: pointer;
 }

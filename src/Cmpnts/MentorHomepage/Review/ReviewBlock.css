@@ -157,10 +157,11 @@
     color: #1CA764;
     text-align: center;
     font-family: "Noto Sans";
-    font-size: 20px;
+    font-size: 2rem;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+    cursor: pointer;
 }
 
 .review_detail_btn > button{
@@ -175,4 +176,5 @@
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+    cursor: pointer;
 }

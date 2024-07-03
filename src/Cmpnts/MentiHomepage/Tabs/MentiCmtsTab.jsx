@@ -1,16 +1,17 @@
 import '../Styles/MentiCmtsTab.css'
 import Comment from '../../Community/CommunityDetail/Comment/Comment';
 import { useRecoilValue } from 'recoil'
-import { postState, crntMenteeState, baseUrl } from '../../../recoil';
+import { postState, crntMenteeState, baseUrl, crntUserState } from '../../../recoil';
 import { useEffect, useState } from 'react';
 
 function MentiCmtsTab(){
-    const crntMentee = useRecoilValue(crntMenteeState)
+    const crntUser = useRecoilValue(crntUserState)
     const [myCmtList, setMyCmtList] = useState([])
     useEffect(()=>{
-        fetch(`${baseUrl}/api/comment/my?userId=${crntMentee.userId}`, {method: 'GET'})
+        fetch(`${baseUrl}/api/comment/my?userId=${crntUser.userId}`, {method: 'GET'})
         .then(res=>res.json())
         .then(data=>{
+            console.log(data)
             setMyCmtList(data.data.comments)
         })
     }, [])
